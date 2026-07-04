@@ -25,6 +25,7 @@ The app must support:
 - High-level system overview.
 - Drill-down from project to system to feature to pipeline step to supporting code/files/tools.
 - Multiple viewing lenses: overview, flows, data, dependencies, runtime, deployment, docs, agents, MCPs, hooks, scripts, and folder structure.
+- A canvas-first 2D world-map experience where zooming reveals more detail.
 - Agent-maintained project maps, so the target project can stay updated without the user manually drawing diagrams.
 - Evidence and confidence markers, so the app shows what was scanned, agent-authored, runtime-observed, or inferred.
 - A reusable data contract that works across many kinds of projects, not only one framework.
@@ -44,6 +45,27 @@ Read these in order:
 
 4. [`04_ATLAS_DATA_CONTRACT.md`](./04_ATLAS_DATA_CONTRACT.md)  
    Defines the first version of the reusable `AtlasBundle` schema, node types, edge types, flow schema, artifact schema, evidence model, confidence model, and examples.
+
+5. [`05_IMPLEMENTATION_TASK_BACKLOG.md`](./05_IMPLEMENTATION_TASK_BACKLOG.md)  
+   Gives the builder-agent a phase-by-phase backlog with goals, deliverables, acceptance criteria, and self-verification questions.
+
+6. [`06_COMPONENT_SPECIFICATION.md`](./06_COMPONENT_SPECIFICATION.md)  
+   Defines the major UI/product components: canvas, nodes, edges, drawers, lenses, docs viewer, flow viewer, search, import, runtime, diff, and agent helper panels.
+
+7. [`07_EXAMPLE_ATLAS_BUNDLE.json`](./07_EXAMPLE_ATLAS_BUNDLE.json)  
+   Provides a realistic demo atlas bundle that the builder-agent can import, render, validate, and use as the primary development fixture.
+
+8. [`08_VALIDATION_TEST_CASES.md`](./08_VALIDATION_TEST_CASES.md)  
+   Defines schema, graph, canvas, flow, search, runtime, diff, and usability validation cases for the implementation agent.
+
+9. [`09_UI_SCREEN_BY_SCREEN_SPEC.md`](./09_UI_SCREEN_BY_SCREEN_SPEC.md)  
+   Specifies every major screen and how it should behave visually and functionally.
+
+10. [`10_AGENT_BUILD_PROMPT.md`](./10_AGENT_BUILD_PROMPT.md)  
+    Provides the master prompt that can be given to the implementation agent building the app.
+
+11. [`11_CANVAS_WORLD_MAP_DESIGN_FRAMEWORK.md`](./11_CANVAS_WORLD_MAP_DESIGN_FRAMEWORK.md)  
+    Captures the core canvas/world-map metaphor, zoom behavior, spatial layout, detail layers, flow routes, document landmarks, MCP/tool islands, runtime routes, and impact blast-radius model.
 
 ## Core design decision
 
@@ -78,6 +100,8 @@ After that, add the agent/CLI workflow that generates and updates the bundle ins
 
 - The UI must be dark, calm, readable, and visually pleasant.
 - The app must explain systems without requiring the user to read code first.
+- The main experience must be canvas-first, like a 2D world map of the project.
+- Zooming should reveal more detail instead of only scaling the same graph.
 - Every important visible item should have a purpose, owner/source, evidence, confidence, and links to related items.
 - The graph must support progressive disclosure. Never force the user to look at the whole codebase as one giant graph.
 - Agents must be able to create and update the project atlas through a clear file contract.
