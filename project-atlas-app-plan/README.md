@@ -67,7 +67,7 @@ Read these in order:
 11. [`11_CANVAS_WORLD_MAP_DESIGN_FRAMEWORK.md`](./11_CANVAS_WORLD_MAP_DESIGN_FRAMEWORK.md)  
     Captures the core canvas/world-map metaphor, zoom behavior, spatial layout, detail layers, flow routes, document landmarks, MCP/tool islands, runtime routes, and impact blast-radius model.
 
-12. [`12_VISUAL_TECH_STACK_AND_WORLD_CLASS_APP_GUIDE.md`](./12_VISUAL_TECH_STACK_AND_WORLD_CLASS_APP_GUIDE.md)  
+12. [`12_VISUAL_TECH_STACK.md`](./12_VISUAL_TECH_STACK.md)  
     Defines the recommended Rust/Tauri desktop stack plus the frontend visual stack needed for a world-class experience: TypeScript, React, Vite, React Flow, ELK.js, D3, Tailwind, Radix/shadcn-style primitives, Motion, Zustand, SQLite, Markdown rendering, search, icons, and testing.
 
 13. [`13_ONE_RUN_IMPLEMENTATION_AGENT_CONTEXT_AND_GOAL.md`](./13_ONE_RUN_IMPLEMENTATION_AGENT_CONTEXT_AND_GOAL.md)  
@@ -100,7 +100,7 @@ Docs/search: react-markdown + command palette + fuzzy search
 Testing: Vitest + React Testing Library + Playwright
 ```
 
-The full stack guidance is defined in [`12_VISUAL_TECH_STACK_AND_WORLD_CLASS_APP_GUIDE.md`](./12_VISUAL_TECH_STACK_AND_WORLD_CLASS_APP_GUIDE.md).
+The full stack guidance is defined in [`12_VISUAL_TECH_STACK.md`](./12_VISUAL_TECH_STACK.md).
 
 ## Recommended build handoff prompt
 
