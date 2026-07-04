@@ -70,6 +70,9 @@ Read these in order:
 12. [`12_VISUAL_TECH_STACK_AND_WORLD_CLASS_APP_GUIDE.md`](./12_VISUAL_TECH_STACK_AND_WORLD_CLASS_APP_GUIDE.md)  
     Defines the recommended Rust/Tauri desktop stack plus the frontend visual stack needed for a world-class experience: TypeScript, React, Vite, React Flow, ELK.js, D3, Tailwind, Radix/shadcn-style primitives, Motion, Zustand, SQLite, Markdown rendering, search, icons, and testing.
 
+13. [`13_ONE_RUN_IMPLEMENTATION_AGENT_CONTEXT_AND_GOAL.md`](./13_ONE_RUN_IMPLEMENTATION_AGENT_CONTEXT_AND_GOAL.md)  
+    Provides the updated one-run implementation-agent context prompt and short goal, including Rust/Tauri, the visual stack, Code Philosophy, full sequential implementation, and full-scale testing expectations.
+
 ## Core design decision
 
 Project Atlas should not depend on perfect automatic code parsing.
@@ -98,6 +101,14 @@ Testing: Vitest + React Testing Library + Playwright
 ```
 
 The full stack guidance is defined in [`12_VISUAL_TECH_STACK_AND_WORLD_CLASS_APP_GUIDE.md`](./12_VISUAL_TECH_STACK_AND_WORLD_CLASS_APP_GUIDE.md).
+
+## Recommended build handoff prompt
+
+For the implementation agent that should build everything in one continuous run, use:
+
+[`13_ONE_RUN_IMPLEMENTATION_AGENT_CONTEXT_AND_GOAL.md`](./13_ONE_RUN_IMPLEMENTATION_AGENT_CONTEXT_AND_GOAL.md)
+
+That file includes the updated context prompt, goal, required stack, Code Philosophy requirement, phase sequence, and full-scale verification standard.
 
 ## Recommended first MVP
 
