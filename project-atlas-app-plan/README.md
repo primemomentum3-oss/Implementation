@@ -1,0 +1,83 @@
+# Project Atlas App — Implementation Planning Folder
+
+This folder contains the implementation plan for a reusable visual project-understanding application.
+
+The app is designed as a separate system that can inspect, import, or receive structured project information from another app/repo and turn it into a dark, visually pleasing, zoomable atlas of systems, flows, files, scripts, hooks, MCPs, agents, data models, runtime traces, documents, and dependencies.
+
+## Intended product name
+
+**Project Atlas**
+
+Alternative names that still fit the plan:
+
+- System Atlas
+- Flow Atlas
+- Repo Atlas
+- Architecture Lens
+- Project X-Ray
+
+## Main goal
+
+Create a reusable app that lets a non-coder understand complex projects through visual layers instead of source code.
+
+The app must support:
+
+- High-level system overview.
+- Drill-down from project to system to feature to pipeline step to supporting code/files/tools.
+- Multiple viewing lenses: overview, flows, data, dependencies, runtime, deployment, docs, agents, MCPs, hooks, scripts, and folder structure.
+- Agent-maintained project maps, so the target project can stay updated without the user manually drawing diagrams.
+- Evidence and confidence markers, so the app shows what was scanned, agent-authored, runtime-observed, or inferred.
+- A reusable data contract that works across many kinds of projects, not only one framework.
+
+## Files in this planning folder
+
+Read these in order:
+
+1. [`01_PRODUCT_AND_UX_BLUEPRINT.md`](./01_PRODUCT_AND_UX_BLUEPRINT.md)  
+   Defines the product behavior, visual experience, app screens, navigation model, dark UI direction, and user workflows.
+
+2. [`02_TECHNICAL_IMPLEMENTATION_PLAN.md`](./02_TECHNICAL_IMPLEMENTATION_PLAN.md)  
+   Defines the architecture, modules, packages, graph model, import pipeline, rendering approach, state management, storage, APIs, and implementation phases.
+
+3. [`03_AGENT_PROJECT_SETUP_GUIDE.md`](./03_AGENT_PROJECT_SETUP_GUIDE.md)  
+   Tells coding agents exactly how to prepare a target project for Project Atlas, what files to create, what to scan, what to explain, and how to keep it updated.
+
+4. [`04_ATLAS_DATA_CONTRACT.md`](./04_ATLAS_DATA_CONTRACT.md)  
+   Defines the first version of the reusable `AtlasBundle` schema, node types, edge types, flow schema, artifact schema, evidence model, confidence model, and examples.
+
+## Core design decision
+
+Project Atlas should not depend on perfect automatic code parsing.
+
+Instead, it should use a hybrid model:
+
+1. **Agent-authored project atlas files** in the target repo.
+2. **Optional scanner/CLI output** for file trees, package scripts, dependencies, routes, docs, workflows, MCP configs, hooks, and schemas.
+3. **Optional runtime traces** for what actually happened during a real flow.
+4. **Manual notes and overrides** for business meaning, plain-language explanations, and project-specific terminology.
+
+This makes the app flexible enough to work across almost any project type.
+
+## Recommended first MVP
+
+Build the app so it can import a single `atlas.bundle.json` file and render:
+
+- Project overview.
+- Zoomable system graph.
+- Feature flow timeline/canvas.
+- Node detail drawer.
+- Docs/readme/AGENTS.md viewer.
+- Folder tree lens.
+- Scripts/hooks/MCP lens.
+- Search and command palette.
+- Confidence/evidence badges.
+
+After that, add the agent/CLI workflow that generates and updates the bundle inside target projects.
+
+## Non-negotiables
+
+- The UI must be dark, calm, readable, and visually pleasant.
+- The app must explain systems without requiring the user to read code first.
+- Every important visible item should have a purpose, owner/source, evidence, confidence, and links to related items.
+- The graph must support progressive disclosure. Never force the user to look at the whole codebase as one giant graph.
+- Agents must be able to create and update the project atlas through a clear file contract.
