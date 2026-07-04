@@ -67,6 +67,9 @@ Read these in order:
 11. [`11_CANVAS_WORLD_MAP_DESIGN_FRAMEWORK.md`](./11_CANVAS_WORLD_MAP_DESIGN_FRAMEWORK.md)  
     Captures the core canvas/world-map metaphor, zoom behavior, spatial layout, detail layers, flow routes, document landmarks, MCP/tool islands, runtime routes, and impact blast-radius model.
 
+12. [`12_VISUAL_TECH_STACK_AND_WORLD_CLASS_APP_GUIDE.md`](./12_VISUAL_TECH_STACK_AND_WORLD_CLASS_APP_GUIDE.md)  
+    Defines the recommended Rust/Tauri desktop stack plus the frontend visual stack needed for a world-class experience: TypeScript, React, Vite, React Flow, ELK.js, D3, Tailwind, Radix/shadcn-style primitives, Motion, Zustand, SQLite, Markdown rendering, search, icons, and testing.
+
 ## Core design decision
 
 Project Atlas should not depend on perfect automatic code parsing.
@@ -79,6 +82,22 @@ Instead, it should use a hybrid model:
 4. **Manual notes and overrides** for business meaning, plain-language explanations, and project-specific terminology.
 
 This makes the app flexible enough to work across almost any project type.
+
+## Recommended implementation stack
+
+The preferred app direction is:
+
+```text
+Desktop shell: Tauri + Rust
+Frontend: TypeScript + React + Vite
+Canvas: @xyflow/react / React Flow + ELK.js + D3 utilities
+Design system: Tailwind CSS + Radix UI/shadcn-style primitives + Motion
+State/storage: Zustand + SQLite/IndexedDB
+Docs/search: react-markdown + command palette + fuzzy search
+Testing: Vitest + React Testing Library + Playwright
+```
+
+The full stack guidance is defined in [`12_VISUAL_TECH_STACK_AND_WORLD_CLASS_APP_GUIDE.md`](./12_VISUAL_TECH_STACK_AND_WORLD_CLASS_APP_GUIDE.md).
 
 ## Recommended first MVP
 
@@ -102,6 +121,7 @@ After that, add the agent/CLI workflow that generates and updates the bundle ins
 - The app must explain systems without requiring the user to read code first.
 - The main experience must be canvas-first, like a 2D world map of the project.
 - Zooming should reveal more detail instead of only scaling the same graph.
+- The implementation should use the visual stack guidance unless there is a strong technical reason to deviate.
 - Every important visible item should have a purpose, owner/source, evidence, confidence, and links to related items.
 - The graph must support progressive disclosure. Never force the user to look at the whole codebase as one giant graph.
 - Agents must be able to create and update the project atlas through a clear file contract.
