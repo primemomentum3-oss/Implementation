@@ -1,0 +1,918 @@
+{
+  "schemaVersion": "1.0.0",
+  "bundleId": "bundle_project_atlas_demo_001",
+  "generatedAt": "2026-07-04T12:00:00Z",
+  "generatedBy": {
+    "type": "hybrid",
+    "name": "Project Atlas Planning Fixture",
+    "version": "0.1.0"
+  },
+  "project": {
+    "id": "project_demo_vibe_saas",
+    "name": "Demo Vibe SaaS App",
+    "summary": "A realistic demo project used to build and verify Project Atlas. It includes frontend, backend, data, scripts, docs, agents, MCP tools, hooks, runtime traces, and deployment objects.",
+    "repository": {
+      "provider": "github",
+      "url": "https://github.com/example/demo-vibe-saas",
+      "defaultBranch": "main",
+      "currentBranch": "main",
+      "commitSha": "demo-fixture"
+    },
+    "primaryLanguages": ["TypeScript"],
+    "frameworks": ["React", "Next.js", "Postgres", "MCP"],
+    "packageManagers": ["pnpm"],
+    "deploymentTargets": ["Vercel", "Supabase"],
+    "tags": ["demo", "saas", "agent-ready", "canvas-fixture"],
+    "confidence": "user_confirmed",
+    "evidence": [
+      {
+        "type": "manual_note",
+        "source": "project-atlas-app-plan/07_EXAMPLE_ATLAS_BUNDLE.json",
+        "reason": "Fixture intentionally created to exercise all Project Atlas lenses."
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "node_project_root",
+      "type": "project",
+      "label": "Demo Vibe SaaS App",
+      "summary": "Root of the demo project map.",
+      "level": "L0",
+      "area": "root",
+      "importance": "critical",
+      "confidence": "user_confirmed",
+      "artifactRefs": ["artifact_folder_root"],
+      "documentRefs": ["doc_readme_root", "doc_agents_root"],
+      "layout": { "preferredColumn": "user", "rank": 0 }
+    },
+    {
+      "id": "node_system_frontend",
+      "type": "frontend",
+      "label": "Frontend App",
+      "summary": "The user-facing web interface where users create projects, review settings, and open visual project maps.",
+      "level": "L1",
+      "area": "frontend",
+      "importance": "critical",
+      "confidence": "confirmed_by_code",
+      "artifactRefs": ["artifact_folder_app", "artifact_folder_components"],
+      "documentRefs": ["doc_readme_root"],
+      "layout": { "preferredColumn": "frontend", "rank": 1 }
+    },
+    {
+      "id": "node_page_dashboard",
+      "type": "page",
+      "label": "Dashboard Page",
+      "summary": "Main logged-in page where the user sees their projects and starts project creation.",
+      "level": "L2",
+      "area": "frontend",
+      "importance": "high",
+      "confidence": "confirmed_by_code",
+      "artifactRefs": ["artifact_file_dashboard_page"],
+      "layout": { "preferredColumn": "frontend", "rank": 2 }
+    },
+    {
+      "id": "node_component_create_project_form",
+      "type": "component",
+      "label": "Create Project Form",
+      "summary": "Form that collects project name, template, and initial settings before calling the backend API.",
+      "level": "L3",
+      "area": "frontend",
+      "importance": "high",
+      "confidence": "confirmed_by_code",
+      "artifactRefs": ["artifact_file_create_project_form"],
+      "layout": { "preferredColumn": "frontend", "rank": 3 }
+    },
+    {
+      "id": "node_system_backend",
+      "type": "backend",
+      "label": "Backend API",
+      "summary": "Server-side routes and services that validate requests, check authentication, and write data.",
+      "level": "L1",
+      "area": "backend",
+      "importance": "critical",
+      "confidence": "confirmed_by_code",
+      "artifactRefs": ["artifact_folder_api", "artifact_folder_lib"],
+      "layout": { "preferredColumn": "backend", "rank": 1 }
+    },
+    {
+      "id": "node_api_create_project",
+      "type": "api_endpoint",
+      "label": "Create Project API",
+      "summary": "Backend endpoint that receives create-project requests from the dashboard and starts project creation.",
+      "level": "L3",
+      "area": "backend",
+      "importance": "high",
+      "confidence": "confirmed_by_code",
+      "artifactRefs": ["artifact_file_projects_route"],
+      "data": { "method": "POST", "path": "/api/projects" },
+      "layout": { "preferredColumn": "backend", "rank": 3 }
+    },
+    {
+      "id": "node_service_project_service",
+      "type": "service",
+      "label": "Project Service",
+      "summary": "Business logic that creates project records, default settings, and activity logs.",
+      "level": "L3",
+      "area": "backend",
+      "importance": "critical",
+      "confidence": "confirmed_by_code",
+      "artifactRefs": ["artifact_file_project_service"],
+      "data": { "reads": ["node_table_users"], "writes": ["node_table_projects", "node_table_activity_logs"] },
+      "layout": { "preferredColumn": "business_logic", "rank": 4 }
+    },
+    {
+      "id": "node_system_auth",
+      "type": "auth_provider",
+      "label": "Authentication",
+      "summary": "Authentication layer that identifies the current user and protects project APIs.",
+      "level": "L1",
+      "area": "auth",
+      "importance": "critical",
+      "confidence": "confirmed_by_config",
+      "artifactRefs": ["artifact_file_auth_config"],
+      "layout": { "preferredColumn": "backend", "rank": 2 }
+    },
+    {
+      "id": "node_system_data",
+      "type": "database",
+      "label": "Project Database",
+      "summary": "Postgres database storing users, projects, subscriptions, and activity logs.",
+      "level": "L1",
+      "area": "data",
+      "importance": "critical",
+      "confidence": "confirmed_by_schema",
+      "artifactRefs": ["artifact_file_database_schema"],
+      "layout": { "preferredColumn": "data", "rank": 1 }
+    },
+    {
+      "id": "node_table_users",
+      "type": "table",
+      "label": "Users Table",
+      "summary": "Stores user records and account identity references.",
+      "level": "L4",
+      "area": "data",
+      "importance": "critical",
+      "confidence": "confirmed_by_schema",
+      "data": { "sensitive": true },
+      "artifactRefs": ["artifact_file_database_schema"],
+      "layout": { "preferredColumn": "data", "rank": 2 }
+    },
+    {
+      "id": "node_table_projects",
+      "type": "table",
+      "label": "Projects Table",
+      "summary": "Stores the projects created by users.",
+      "level": "L4",
+      "area": "data",
+      "importance": "critical",
+      "confidence": "confirmed_by_schema",
+      "artifactRefs": ["artifact_file_database_schema"],
+      "layout": { "preferredColumn": "data", "rank": 3 }
+    },
+    {
+      "id": "node_table_activity_logs",
+      "type": "table",
+      "label": "Activity Logs Table",
+      "summary": "Records important user and system actions for audit and history.",
+      "level": "L4",
+      "area": "data",
+      "importance": "normal",
+      "confidence": "confirmed_by_schema",
+      "artifactRefs": ["artifact_file_database_schema"],
+      "layout": { "preferredColumn": "data", "rank": 4 }
+    },
+    {
+      "id": "node_system_billing",
+      "type": "system",
+      "label": "Billing System",
+      "summary": "Handles payments, subscriptions, and Stripe webhook events.",
+      "level": "L1",
+      "area": "billing",
+      "importance": "high",
+      "confidence": "confirmed_by_code",
+      "artifactRefs": ["artifact_folder_billing"],
+      "layout": { "preferredColumn": "backend", "rank": 5 }
+    },
+    {
+      "id": "node_webhook_stripe",
+      "type": "webhook",
+      "label": "Stripe Payment Webhook",
+      "summary": "Receives payment and subscription events from Stripe.",
+      "level": "L3",
+      "area": "billing",
+      "importance": "high",
+      "confidence": "confirmed_by_code",
+      "artifactRefs": ["artifact_file_stripe_webhook"],
+      "data": {
+        "hook": {
+          "category": "integration_webhook",
+          "trigger": "Stripe sends payment or subscription event",
+          "handler": "app/api/stripe/webhook/route.ts",
+          "eventSource": "Stripe"
+        }
+      },
+      "layout": { "preferredColumn": "backend", "rank": 6 }
+    },
+    {
+      "id": "node_external_stripe",
+      "type": "payment_provider",
+      "label": "Stripe",
+      "summary": "External payment provider for subscriptions and billing events.",
+      "level": "L1",
+      "area": "external",
+      "importance": "high",
+      "confidence": "confirmed_by_config",
+      "layout": { "preferredColumn": "external", "rank": 3 }
+    },
+    {
+      "id": "node_external_email",
+      "type": "email_provider",
+      "label": "Email Service",
+      "summary": "External service used to send welcome and project notification emails.",
+      "level": "L2",
+      "area": "external",
+      "importance": "normal",
+      "confidence": "confirmed_by_config",
+      "artifactRefs": ["artifact_file_email_service"],
+      "layout": { "preferredColumn": "external", "rank": 4 }
+    },
+    {
+      "id": "node_system_agent_tooling",
+      "type": "system",
+      "label": "Agent Tooling",
+      "summary": "Agent instructions, MCP servers, MCP tools, and automation used by coding agents in the project.",
+      "level": "L1",
+      "area": "agent_tooling",
+      "importance": "high",
+      "confidence": "confirmed_by_docs",
+      "artifactRefs": ["artifact_folder_cursor", "artifact_file_mcp_config"],
+      "documentRefs": ["doc_agents_root"],
+      "layout": { "preferredColumn": "agent_tools", "rank": 1 }
+    },
+    {
+      "id": "node_agent_implementation_agent",
+      "type": "agent",
+      "label": "Implementation Agent",
+      "summary": "Coding agent that modifies the target project and is expected to update .project-atlas after changes.",
+      "level": "L2",
+      "area": "agent_tooling",
+      "importance": "high",
+      "confidence": "confirmed_by_docs",
+      "documentRefs": ["doc_agents_root", "doc_atlas_agent_instructions"],
+      "layout": { "preferredColumn": "agent_tools", "rank": 2 }
+    },
+    {
+      "id": "node_mcp_github_server",
+      "type": "mcp_server",
+      "label": "GitHub MCP Server",
+      "summary": "MCP server that gives agents repository, issue, and pull request capabilities.",
+      "level": "L3",
+      "area": "agent_tooling",
+      "importance": "high",
+      "confidence": "confirmed_by_config",
+      "artifactRefs": ["artifact_file_mcp_config"],
+      "data": {
+        "mcp": {
+          "serverName": "github",
+          "transport": "stdio",
+          "permissions": ["read_repository", "write_pull_request", "read_issues"]
+        }
+      },
+      "layout": { "preferredColumn": "agent_tools", "rank": 3 }
+    },
+    {
+      "id": "node_mcp_tool_read_repo",
+      "type": "mcp_tool",
+      "label": "Read Repository Tool",
+      "summary": "Lets an agent inspect repository files and metadata.",
+      "level": "L4",
+      "area": "agent_tooling",
+      "importance": "normal",
+      "confidence": "agent_inferred",
+      "data": {
+        "mcp": {
+          "serverName": "github",
+          "toolName": "read_repository",
+          "inputSchemaSummary": "Repository name and file/path query.",
+          "outputSchemaSummary": "Repository file contents or metadata."
+        }
+      },
+      "layout": { "preferredColumn": "agent_tools", "rank": 4 }
+    },
+    {
+      "id": "node_mcp_tool_create_pr",
+      "type": "mcp_tool",
+      "label": "Create Pull Request Tool",
+      "summary": "Lets an agent create a pull request after implementing changes.",
+      "level": "L4",
+      "area": "agent_tooling",
+      "importance": "normal",
+      "confidence": "agent_inferred",
+      "data": {
+        "mcp": {
+          "serverName": "github",
+          "toolName": "create_pull_request",
+          "inputSchemaSummary": "Branch, title, body, and changed files.",
+          "outputSchemaSummary": "Pull request URL and metadata."
+        }
+      },
+      "layout": { "preferredColumn": "agent_tools", "rank": 5 }
+    },
+    {
+      "id": "node_doc_agents_root",
+      "type": "document",
+      "label": "Root AGENTS.md",
+      "summary": "Repo-wide instructions for agents working on the project.",
+      "level": "L4",
+      "area": "docs",
+      "importance": "critical",
+      "confidence": "confirmed_by_docs",
+      "documentRefs": ["doc_agents_root"],
+      "artifactRefs": ["artifact_file_agents_md"],
+      "layout": { "preferredColumn": "docs", "rank": 1 }
+    },
+    {
+      "id": "node_script_dev",
+      "type": "script",
+      "label": "Run Development Server",
+      "summary": "Starts the local development server.",
+      "level": "L4",
+      "area": "scripts",
+      "importance": "normal",
+      "confidence": "confirmed_by_config",
+      "artifactRefs": ["artifact_file_package_json"],
+      "data": {
+        "script": {
+          "scriptName": "dev",
+          "command": "pnpm dev",
+          "packageManager": "pnpm",
+          "whenToUse": "During local development.",
+          "riskLevel": "low"
+        }
+      },
+      "layout": { "preferredColumn": "automation", "rank": 1 }
+    },
+    {
+      "id": "node_script_build",
+      "type": "script",
+      "label": "Build App",
+      "summary": "Creates a production build of the app.",
+      "level": "L4",
+      "area": "scripts",
+      "importance": "high",
+      "confidence": "confirmed_by_config",
+      "artifactRefs": ["artifact_file_package_json"],
+      "data": {
+        "script": {
+          "scriptName": "build",
+          "command": "pnpm build",
+          "packageManager": "pnpm",
+          "whenToUse": "Before deployment or release verification.",
+          "riskLevel": "medium"
+        }
+      },
+      "layout": { "preferredColumn": "automation", "rank": 2 }
+    },
+    {
+      "id": "node_workflow_ci",
+      "type": "workflow",
+      "label": "CI Build Workflow",
+      "summary": "GitHub Actions workflow that installs dependencies, runs checks, and builds the app.",
+      "level": "L3",
+      "area": "automation",
+      "importance": "high",
+      "confidence": "confirmed_by_config",
+      "artifactRefs": ["artifact_file_ci_workflow"],
+      "layout": { "preferredColumn": "automation", "rank": 3 }
+    },
+    {
+      "id": "node_hook_pre_commit",
+      "type": "hook",
+      "label": "Pre-commit Quality Hook",
+      "summary": "Runs formatting or checks before commits.",
+      "level": "L4",
+      "area": "automation",
+      "importance": "normal",
+      "confidence": "agent_inferred",
+      "data": {
+        "hook": {
+          "category": "git_hook",
+          "trigger": "Before a git commit is created",
+          "handler": ".husky/pre-commit"
+        }
+      },
+      "artifactRefs": ["artifact_file_pre_commit"],
+      "layout": { "preferredColumn": "automation", "rank": 4 }
+    },
+    {
+      "id": "node_deployment_vercel",
+      "type": "deployment_target",
+      "label": "Vercel Deployment",
+      "summary": "Hosts the frontend and serverless API routes in production.",
+      "level": "L1",
+      "area": "deployment",
+      "importance": "high",
+      "confidence": "confirmed_by_config",
+      "artifactRefs": ["artifact_file_vercel_config"],
+      "data": {
+        "deployment": {
+          "provider": "Vercel",
+          "environment": "production",
+          "buildCommand": "pnpm build",
+          "runtime": "Node.js"
+        }
+      },
+      "layout": { "preferredColumn": "deployment", "rank": 1 }
+    },
+    {
+      "id": "node_env_database_url",
+      "type": "env_var",
+      "label": "DATABASE_URL",
+      "summary": "Environment variable name used by the app to connect to the database. The value is never stored in the atlas.",
+      "level": "L5",
+      "area": "deployment",
+      "importance": "critical",
+      "confidence": "confirmed_by_config",
+      "data": {
+        "envVar": {
+          "name": "DATABASE_URL",
+          "required": true,
+          "usedByNodeRefs": ["node_system_data", "node_service_project_service"],
+          "description": "Database connection string name.",
+          "valueIncluded": false
+        }
+      },
+      "artifactRefs": ["artifact_file_env_example"],
+      "layout": { "preferredColumn": "deployment", "rank": 2 }
+    }
+  ],
+  "edges": [
+    { "id": "edge_project_contains_frontend", "type": "contains", "sourceId": "node_project_root", "targetId": "node_system_frontend", "label": "contains", "confidence": "user_confirmed" },
+    { "id": "edge_project_contains_backend", "type": "contains", "sourceId": "node_project_root", "targetId": "node_system_backend", "label": "contains", "confidence": "user_confirmed" },
+    { "id": "edge_project_contains_data", "type": "contains", "sourceId": "node_project_root", "targetId": "node_system_data", "label": "contains", "confidence": "user_confirmed" },
+    { "id": "edge_project_contains_agent_tooling", "type": "contains", "sourceId": "node_project_root", "targetId": "node_system_agent_tooling", "label": "contains", "confidence": "user_confirmed" },
+    { "id": "edge_frontend_contains_dashboard", "type": "contains", "sourceId": "node_system_frontend", "targetId": "node_page_dashboard", "label": "contains", "confidence": "confirmed_by_code" },
+    { "id": "edge_dashboard_renders_form", "type": "renders", "sourceId": "node_page_dashboard", "targetId": "node_component_create_project_form", "label": "renders", "confidence": "confirmed_by_code" },
+    { "id": "edge_form_calls_create_project_api", "type": "calls", "sourceId": "node_component_create_project_form", "targetId": "node_api_create_project", "label": "submits request to", "summary": "The frontend form calls the backend API to create a project.", "confidence": "confirmed_by_code" },
+    { "id": "edge_api_uses_auth", "type": "authenticates_with", "sourceId": "node_api_create_project", "targetId": "node_system_auth", "label": "checks user with", "confidence": "confirmed_by_code" },
+    { "id": "edge_api_calls_project_service", "type": "calls", "sourceId": "node_api_create_project", "targetId": "node_service_project_service", "label": "delegates to", "confidence": "confirmed_by_code" },
+    { "id": "edge_project_service_reads_users", "type": "reads", "sourceId": "node_service_project_service", "targetId": "node_table_users", "label": "reads", "confidence": "confirmed_by_code" },
+    { "id": "edge_project_service_writes_projects", "type": "writes", "sourceId": "node_service_project_service", "targetId": "node_table_projects", "label": "writes", "confidence": "confirmed_by_code" },
+    { "id": "edge_project_service_writes_activity_logs", "type": "writes", "sourceId": "node_service_project_service", "targetId": "node_table_activity_logs", "label": "writes", "confidence": "confirmed_by_code" },
+    { "id": "edge_project_service_uses_email", "type": "uses", "sourceId": "node_service_project_service", "targetId": "node_external_email", "label": "sends notification through", "confidence": "confirmed_by_code" },
+    { "id": "edge_data_contains_users", "type": "contains", "sourceId": "node_system_data", "targetId": "node_table_users", "label": "contains", "confidence": "confirmed_by_schema" },
+    { "id": "edge_data_contains_projects", "type": "contains", "sourceId": "node_system_data", "targetId": "node_table_projects", "label": "contains", "confidence": "confirmed_by_schema" },
+    { "id": "edge_data_contains_activity_logs", "type": "contains", "sourceId": "node_system_data", "targetId": "node_table_activity_logs", "label": "contains", "confidence": "confirmed_by_schema" },
+    { "id": "edge_stripe_triggers_webhook", "type": "triggers", "sourceId": "node_external_stripe", "targetId": "node_webhook_stripe", "label": "sends event to", "confidence": "confirmed_by_code" },
+    { "id": "edge_billing_contains_webhook", "type": "contains", "sourceId": "node_system_billing", "targetId": "node_webhook_stripe", "label": "contains", "confidence": "confirmed_by_code" },
+    { "id": "edge_agent_tooling_contains_agent", "type": "contains", "sourceId": "node_system_agent_tooling", "targetId": "node_agent_implementation_agent", "label": "contains", "confidence": "confirmed_by_docs" },
+    { "id": "edge_agent_uses_github_mcp", "type": "uses", "sourceId": "node_agent_implementation_agent", "targetId": "node_mcp_github_server", "label": "uses", "confidence": "confirmed_by_config" },
+    { "id": "edge_github_mcp_exposes_read_repo", "type": "exposes_tool", "sourceId": "node_mcp_github_server", "targetId": "node_mcp_tool_read_repo", "label": "exposes", "confidence": "agent_inferred" },
+    { "id": "edge_github_mcp_exposes_create_pr", "type": "exposes_tool", "sourceId": "node_mcp_github_server", "targetId": "node_mcp_tool_create_pr", "label": "exposes", "confidence": "agent_inferred" },
+    { "id": "edge_agent_reads_agents_doc", "type": "documents", "sourceId": "node_doc_agents_root", "targetId": "node_agent_implementation_agent", "label": "instructs", "confidence": "confirmed_by_docs" },
+    { "id": "edge_ci_runs_build", "type": "runs", "sourceId": "node_workflow_ci", "targetId": "node_script_build", "label": "runs", "confidence": "confirmed_by_config" },
+    { "id": "edge_vercel_uses_build", "type": "runs", "sourceId": "node_deployment_vercel", "targetId": "node_script_build", "label": "uses build command", "confidence": "confirmed_by_config" },
+    { "id": "edge_backend_deploys_to_vercel", "type": "deploys_to", "sourceId": "node_system_backend", "targetId": "node_deployment_vercel", "label": "deploys to", "confidence": "confirmed_by_config" },
+    { "id": "edge_frontend_deploys_to_vercel", "type": "deploys_to", "sourceId": "node_system_frontend", "targetId": "node_deployment_vercel", "label": "deploys to", "confidence": "confirmed_by_config" },
+    { "id": "edge_database_uses_env", "type": "configured_by", "sourceId": "node_system_data", "targetId": "node_env_database_url", "label": "configured by", "confidence": "confirmed_by_config" },
+    { "id": "edge_pre_commit_runs_build", "type": "runs", "sourceId": "node_hook_pre_commit", "targetId": "node_script_build", "label": "may run checks before commit", "confidence": "agent_inferred" }
+  ],
+  "flows": [
+    {
+      "id": "flow_create_project",
+      "type": "user_flow",
+      "label": "Create Project",
+      "summary": "A user creates a new project from the dashboard. This flow demonstrates frontend, backend, auth, data writes, and notification behavior.",
+      "area": "projects",
+      "trigger": {
+        "type": "user_action",
+        "description": "User submits the Create Project form.",
+        "sourceNodeRef": "node_component_create_project_form"
+      },
+      "nodeRefs": ["node_component_create_project_form", "node_api_create_project", "node_system_auth", "node_service_project_service", "node_table_projects", "node_table_activity_logs", "node_external_email"],
+      "artifactRefs": ["artifact_file_create_project_form", "artifact_file_projects_route", "artifact_file_project_service"],
+      "documentRefs": ["doc_readme_root"],
+      "traceRefs": ["trace_create_project_observed_001"],
+      "tags": ["user", "project", "core-flow"],
+      "confidence": "confirmed_by_code",
+      "steps": [
+        {
+          "id": "step_create_project_01_open_dashboard",
+          "label": "Open dashboard",
+          "order": 1,
+          "summary": "The user opens the dashboard where project actions are available.",
+          "nodeRefs": ["node_page_dashboard"],
+          "artifactRefs": ["artifact_file_dashboard_page"],
+          "confidence": "confirmed_by_code"
+        },
+        {
+          "id": "step_create_project_02_submit_form",
+          "label": "Submit project form",
+          "order": 2,
+          "summary": "The user enters project details and submits the form.",
+          "nodeRefs": ["node_component_create_project_form"],
+          "artifactRefs": ["artifact_file_create_project_form"],
+          "outputs": [
+            { "name": "Create project request", "type": "object", "description": "Project name, template, and settings." }
+          ],
+          "confidence": "confirmed_by_code"
+        },
+        {
+          "id": "step_create_project_03_call_api",
+          "label": "Call Create Project API",
+          "order": 3,
+          "summary": "The form sends the create-project request to the backend API.",
+          "nodeRefs": ["node_api_create_project"],
+          "artifactRefs": ["artifact_file_projects_route"],
+          "inputs": [
+            { "name": "Create project request", "type": "object", "required": true }
+          ],
+          "calls": ["node_api_create_project"],
+          "confidence": "confirmed_by_code"
+        },
+        {
+          "id": "step_create_project_04_auth_check",
+          "label": "Check authentication",
+          "order": 4,
+          "summary": "The backend verifies that the request belongs to a logged-in user.",
+          "nodeRefs": ["node_system_auth"],
+          "reads": ["node_table_users"],
+          "errorPaths": [
+            { "condition": "User is not logged in", "result": "Request is rejected", "severity": "high" }
+          ],
+          "confidence": "confirmed_by_code"
+        },
+        {
+          "id": "step_create_project_05_create_records",
+          "label": "Create project records",
+          "order": 5,
+          "summary": "Project Service creates the project and activity-log records in the database.",
+          "nodeRefs": ["node_service_project_service", "node_table_projects", "node_table_activity_logs"],
+          "artifactRefs": ["artifact_file_project_service", "artifact_file_database_schema"],
+          "reads": ["node_table_users"],
+          "writes": ["node_table_projects", "node_table_activity_logs"],
+          "confidence": "confirmed_by_code"
+        },
+        {
+          "id": "step_create_project_06_send_notification",
+          "label": "Send notification email",
+          "order": 6,
+          "summary": "The system sends a confirmation or welcome email through the email service.",
+          "nodeRefs": ["node_external_email"],
+          "artifactRefs": ["artifact_file_email_service"],
+          "confidence": "confirmed_by_code"
+        }
+      ]
+    },
+    {
+      "id": "flow_agent_creates_pull_request",
+      "type": "agent_flow",
+      "label": "Agent Creates Pull Request",
+      "summary": "An implementation agent reads repo instructions, inspects files through MCP tools, changes the project, updates .project-atlas, and opens a pull request.",
+      "area": "agent_tooling",
+      "trigger": {
+        "type": "agent_action",
+        "description": "User asks an implementation agent to change the project."
+      },
+      "nodeRefs": ["node_agent_implementation_agent", "node_doc_agents_root", "node_mcp_github_server", "node_mcp_tool_read_repo", "node_mcp_tool_create_pr"],
+      "artifactRefs": ["artifact_file_agents_md", "artifact_file_mcp_config"],
+      "documentRefs": ["doc_agents_root", "doc_atlas_agent_instructions"],
+      "tags": ["agent", "mcp", "pull-request"],
+      "confidence": "confirmed_by_docs",
+      "steps": [
+        {
+          "id": "step_agent_pr_01_read_instructions",
+          "label": "Read agent instructions",
+          "order": 1,
+          "summary": "The agent reads AGENTS.md and Project Atlas maintenance instructions before changing the project.",
+          "nodeRefs": ["node_agent_implementation_agent", "node_doc_agents_root"],
+          "documentRefs": ["doc_agents_root", "doc_atlas_agent_instructions"],
+          "confidence": "confirmed_by_docs"
+        },
+        {
+          "id": "step_agent_pr_02_inspect_repo",
+          "label": "Inspect repository",
+          "order": 2,
+          "summary": "The agent uses the GitHub MCP server to inspect repository files and understand impact.",
+          "nodeRefs": ["node_mcp_github_server", "node_mcp_tool_read_repo"],
+          "usesTools": ["node_mcp_tool_read_repo"],
+          "confidence": "agent_inferred"
+        },
+        {
+          "id": "step_agent_pr_03_update_atlas",
+          "label": "Update project atlas files",
+          "order": 3,
+          "summary": "After changing the project, the agent updates .project-atlas so the visual map stays current.",
+          "nodeRefs": ["node_agent_implementation_agent"],
+          "artifactRefs": ["artifact_folder_project_atlas"],
+          "documentRefs": ["doc_atlas_agent_instructions"],
+          "confidence": "confirmed_by_docs"
+        },
+        {
+          "id": "step_agent_pr_04_create_pr",
+          "label": "Create pull request",
+          "order": 4,
+          "summary": "The agent uses the Create Pull Request tool to submit changes for review.",
+          "nodeRefs": ["node_mcp_tool_create_pr"],
+          "usesTools": ["node_mcp_tool_create_pr"],
+          "confidence": "agent_inferred"
+        }
+      ]
+    },
+    {
+      "id": "flow_stripe_webhook",
+      "type": "webhook_flow",
+      "label": "Process Stripe Webhook",
+      "summary": "Stripe sends a payment event to the app, and the billing system updates subscription-related records.",
+      "area": "billing",
+      "trigger": {
+        "type": "webhook",
+        "description": "Stripe sends a payment or subscription event.",
+        "sourceNodeRef": "node_external_stripe"
+      },
+      "nodeRefs": ["node_external_stripe", "node_webhook_stripe", "node_system_billing", "node_system_data"],
+      "artifactRefs": ["artifact_file_stripe_webhook"],
+      "tags": ["billing", "webhook", "external-service"],
+      "confidence": "confirmed_by_code",
+      "steps": [
+        {
+          "id": "step_stripe_webhook_01_receive_event",
+          "label": "Receive Stripe event",
+          "order": 1,
+          "summary": "Stripe sends an event to the webhook endpoint.",
+          "nodeRefs": ["node_external_stripe", "node_webhook_stripe"],
+          "confidence": "confirmed_by_code"
+        },
+        {
+          "id": "step_stripe_webhook_02_verify_event",
+          "label": "Verify webhook signature",
+          "order": 2,
+          "summary": "The webhook handler verifies the event came from Stripe.",
+          "nodeRefs": ["node_webhook_stripe"],
+          "artifactRefs": ["artifact_file_stripe_webhook"],
+          "errorPaths": [
+            { "condition": "Invalid signature", "result": "Event is rejected", "severity": "critical" }
+          ],
+          "confidence": "confirmed_by_code"
+        },
+        {
+          "id": "step_stripe_webhook_03_update_records",
+          "label": "Update billing records",
+          "order": 3,
+          "summary": "The billing system updates internal records based on the event.",
+          "nodeRefs": ["node_system_billing", "node_system_data"],
+          "writes": ["node_system_data"],
+          "confidence": "agent_inferred"
+        }
+      ]
+    },
+    {
+      "id": "flow_ci_build",
+      "type": "build_flow",
+      "label": "CI Build and Verification",
+      "summary": "GitHub Actions installs dependencies and runs build checks before code is considered ready.",
+      "area": "automation",
+      "trigger": {
+        "type": "deployment",
+        "description": "Pull request or push triggers the CI workflow."
+      },
+      "nodeRefs": ["node_workflow_ci", "node_script_build"],
+      "artifactRefs": ["artifact_file_ci_workflow", "artifact_file_package_json"],
+      "tags": ["ci", "build", "quality"],
+      "confidence": "confirmed_by_config",
+      "steps": [
+        {
+          "id": "step_ci_01_checkout",
+          "label": "Checkout repository",
+          "order": 1,
+          "summary": "The workflow checks out the repository.",
+          "nodeRefs": ["node_workflow_ci"],
+          "confidence": "confirmed_by_config"
+        },
+        {
+          "id": "step_ci_02_install",
+          "label": "Install dependencies",
+          "order": 2,
+          "summary": "The workflow installs project dependencies.",
+          "nodeRefs": ["node_workflow_ci"],
+          "confidence": "confirmed_by_config"
+        },
+        {
+          "id": "step_ci_03_build",
+          "label": "Run build script",
+          "order": 3,
+          "summary": "The workflow runs the app build command.",
+          "nodeRefs": ["node_script_build"],
+          "confidence": "confirmed_by_config"
+        }
+      ]
+    },
+    {
+      "id": "flow_open_agents_document",
+      "type": "user_flow",
+      "label": "Open AGENTS.md in Atlas",
+      "summary": "A user clicks an AGENTS.md node or document result and reads the scoped agent instructions inside Project Atlas.",
+      "area": "docs",
+      "trigger": {
+        "type": "user_action",
+        "description": "User clicks Root AGENTS.md on the canvas or in search results.",
+        "sourceNodeRef": "node_doc_agents_root"
+      },
+      "nodeRefs": ["node_doc_agents_root", "node_system_agent_tooling"],
+      "artifactRefs": ["artifact_file_agents_md"],
+      "documentRefs": ["doc_agents_root"],
+      "tags": ["docs", "agents", "canvas-drilldown"],
+      "confidence": "confirmed_by_docs",
+      "steps": [
+        {
+          "id": "step_open_agents_doc_01_select_node",
+          "label": "Select AGENTS.md node",
+          "order": 1,
+          "summary": "The user clicks the AGENTS.md node from the canvas, search, docs lens, or agent tooling lens.",
+          "nodeRefs": ["node_doc_agents_root"],
+          "confidence": "user_confirmed"
+        },
+        {
+          "id": "step_open_agents_doc_02_open_viewer",
+          "label": "Open document viewer",
+          "order": 2,
+          "summary": "Project Atlas opens the document viewer with summary, scope, important notes, and source path.",
+          "nodeRefs": ["node_doc_agents_root"],
+          "documentRefs": ["doc_agents_root"],
+          "confidence": "user_confirmed"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    { "id": "artifact_folder_root", "type": "folder", "label": "Repository Root", "path": ".", "summary": "Root folder of the project.", "appliesToNodeRefs": ["node_project_root"], "confidence": "confirmed_by_config" },
+    { "id": "artifact_folder_app", "type": "folder", "label": "App Folder", "path": "app", "summary": "Main app routes and pages.", "appliesToNodeRefs": ["node_system_frontend"], "confidence": "confirmed_by_code" },
+    { "id": "artifact_folder_components", "type": "folder", "label": "Components Folder", "path": "components", "summary": "Reusable frontend components.", "appliesToNodeRefs": ["node_system_frontend"], "confidence": "confirmed_by_code" },
+    { "id": "artifact_folder_api", "type": "folder", "label": "API Routes Folder", "path": "app/api", "summary": "Backend API routes.", "appliesToNodeRefs": ["node_system_backend"], "confidence": "confirmed_by_code" },
+    { "id": "artifact_folder_lib", "type": "folder", "label": "Library Folder", "path": "lib", "summary": "Shared backend services and utilities.", "appliesToNodeRefs": ["node_system_backend"], "confidence": "confirmed_by_code" },
+    { "id": "artifact_folder_billing", "type": "folder", "label": "Billing Folder", "path": "app/api/stripe", "summary": "Billing and Stripe webhook code.", "appliesToNodeRefs": ["node_system_billing"], "confidence": "confirmed_by_code" },
+    { "id": "artifact_folder_cursor", "type": "folder", "label": "Agent Settings Folder", "path": ".cursor", "summary": "Agent/client settings and MCP configuration.", "appliesToNodeRefs": ["node_system_agent_tooling"], "confidence": "confirmed_by_config" },
+    { "id": "artifact_folder_project_atlas", "type": "folder", "label": "Project Atlas Data Folder", "path": ".project-atlas", "summary": "Structured atlas files maintained by agents for visual project understanding.", "appliesToNodeRefs": ["node_agent_implementation_agent"], "confidence": "confirmed_by_docs" },
+    { "id": "artifact_file_dashboard_page", "type": "file", "label": "Dashboard Page File", "path": "app/dashboard/page.tsx", "summary": "Defines the dashboard page.", "appliesToNodeRefs": ["node_page_dashboard"], "supportsFlowRefs": ["flow_create_project"], "confidence": "confirmed_by_code" },
+    { "id": "artifact_file_create_project_form", "type": "file", "label": "Create Project Form File", "path": "components/CreateProjectForm.tsx", "summary": "Defines the create-project form component.", "appliesToNodeRefs": ["node_component_create_project_form"], "supportsFlowRefs": ["flow_create_project"], "confidence": "confirmed_by_code" },
+    { "id": "artifact_file_projects_route", "type": "route", "label": "Projects API Route File", "path": "app/api/projects/route.ts", "summary": "Backend API route for project creation.", "appliesToNodeRefs": ["node_api_create_project"], "supportsFlowRefs": ["flow_create_project"], "confidence": "confirmed_by_code" },
+    { "id": "artifact_file_project_service", "type": "file", "label": "Project Service File", "path": "lib/project-service.ts", "summary": "Contains project creation business logic.", "appliesToNodeRefs": ["node_service_project_service"], "supportsFlowRefs": ["flow_create_project"], "confidence": "confirmed_by_code" },
+    { "id": "artifact_file_auth_config", "type": "config", "label": "Auth Config", "path": "lib/auth.ts", "summary": "Authentication helper/configuration.", "appliesToNodeRefs": ["node_system_auth"], "confidence": "confirmed_by_config" },
+    { "id": "artifact_file_database_schema", "type": "schema", "label": "Database Schema", "path": "db/schema.ts", "summary": "Defines users, projects, and activity logs tables.", "appliesToNodeRefs": ["node_system_data", "node_table_users", "node_table_projects", "node_table_activity_logs"], "confidence": "confirmed_by_schema" },
+    { "id": "artifact_file_stripe_webhook", "type": "route", "label": "Stripe Webhook Route", "path": "app/api/stripe/webhook/route.ts", "summary": "Handles Stripe webhook events.", "appliesToNodeRefs": ["node_webhook_stripe"], "supportsFlowRefs": ["flow_stripe_webhook"], "confidence": "confirmed_by_code" },
+    { "id": "artifact_file_email_service", "type": "file", "label": "Email Service File", "path": "lib/email-service.ts", "summary": "Sends notification emails.", "appliesToNodeRefs": ["node_external_email"], "supportsFlowRefs": ["flow_create_project"], "confidence": "confirmed_by_code" },
+    { "id": "artifact_file_mcp_config", "type": "config", "label": "MCP Configuration", "path": ".cursor/mcp.json", "summary": "Configures MCP servers available to agents.", "appliesToNodeRefs": ["node_mcp_github_server", "node_system_agent_tooling"], "supportsFlowRefs": ["flow_agent_creates_pull_request"], "confidence": "confirmed_by_config" },
+    { "id": "artifact_file_agents_md", "type": "document", "label": "Root AGENTS.md File", "path": "AGENTS.md", "summary": "Repo-wide instructions for coding agents.", "appliesToNodeRefs": ["node_doc_agents_root", "node_agent_implementation_agent"], "supportsFlowRefs": ["flow_agent_creates_pull_request", "flow_open_agents_document"], "confidence": "confirmed_by_docs" },
+    { "id": "artifact_file_package_json", "type": "config", "label": "Package Manifest", "path": "package.json", "summary": "Defines package scripts and dependencies.", "appliesToNodeRefs": ["node_script_dev", "node_script_build"], "supportsFlowRefs": ["flow_ci_build"], "confidence": "confirmed_by_config" },
+    { "id": "artifact_file_ci_workflow", "type": "workflow", "label": "CI Workflow File", "path": ".github/workflows/ci.yml", "summary": "Defines automated build verification.", "appliesToNodeRefs": ["node_workflow_ci"], "supportsFlowRefs": ["flow_ci_build"], "confidence": "confirmed_by_config" },
+    { "id": "artifact_file_pre_commit", "type": "config", "label": "Pre-commit Hook File", "path": ".husky/pre-commit", "summary": "Runs checks before commits.", "appliesToNodeRefs": ["node_hook_pre_commit"], "confidence": "agent_inferred" },
+    { "id": "artifact_file_vercel_config", "type": "config", "label": "Vercel Config", "path": "vercel.json", "summary": "Deployment configuration for Vercel.", "appliesToNodeRefs": ["node_deployment_vercel"], "confidence": "confirmed_by_config" },
+    { "id": "artifact_file_env_example", "type": "config", "label": "Environment Example", "path": ".env.example", "summary": "Lists required environment variable names without secret values.", "appliesToNodeRefs": ["node_env_database_url"], "sensitive": true, "confidence": "confirmed_by_config" }
+  ],
+  "documents": [
+    {
+      "id": "doc_readme_root",
+      "type": "readme",
+      "title": "Project README",
+      "path": "README.md",
+      "summary": "Explains what the demo app does and how to run it locally.",
+      "appliesToNodeRefs": ["node_project_root", "node_system_frontend", "node_system_backend"],
+      "appliesToPath": ".",
+      "importantNotes": ["Use pnpm for package commands.", "Run the build before deployment."],
+      "confidence": "confirmed_by_docs",
+      "metadata": {
+        "contentPreviewMarkdown": "# Demo Vibe SaaS App\n\nThis project demonstrates a SaaS app with project creation, billing, agent tooling, and Project Atlas mapping."
+      }
+    },
+    {
+      "id": "doc_agents_root",
+      "type": "agents_md",
+      "title": "Root AGENTS.md",
+      "path": "AGENTS.md",
+      "summary": "Repo-wide instructions for agents. Project Atlas must show this document as a scoped instruction source.",
+      "appliesToNodeRefs": ["node_project_root", "node_system_agent_tooling", "node_agent_implementation_agent", "node_doc_agents_root"],
+      "appliesToPath": ".",
+      "importantNotes": [
+        "Read before modifying any project files.",
+        "Update .project-atlas after changing features, scripts, docs, MCP tools, hooks, or flows.",
+        "Do not include secret values in atlas data."
+      ],
+      "confidence": "confirmed_by_docs",
+      "metadata": {
+        "contentPreviewMarkdown": "# AGENTS.md\n\nAgents must read this before making changes. After implementation work, update .project-atlas/atlas.bundle.json and create a snapshot."
+      }
+    },
+    {
+      "id": "doc_atlas_agent_instructions",
+      "type": "setup_doc",
+      "title": "Project Atlas Agent Instructions",
+      "path": ".project-atlas/agent-instructions.md",
+      "summary": "Explains how agents should maintain atlas files inside the target project.",
+      "appliesToNodeRefs": ["node_agent_implementation_agent", "node_system_agent_tooling"],
+      "appliesToPath": ".project-atlas",
+      "importantNotes": ["Use stable IDs.", "Mark inferred items honestly.", "Keep the atlas synchronized with project changes."],
+      "confidence": "confirmed_by_docs"
+    }
+  ],
+  "traces": [
+    {
+      "id": "trace_create_project_observed_001",
+      "name": "Create Project observed run",
+      "flowRef": "flow_create_project",
+      "traceId": "trace-demo-create-project-001",
+      "startedAt": "2026-07-04T12:15:00Z",
+      "durationMs": 842,
+      "status": "ok",
+      "spans": [
+        { "id": "span_create_project_submit", "spanId": "span-001", "parentSpanId": null, "label": "User submitted Create Project form", "nodeRefs": ["node_component_create_project_form"], "startedAt": "2026-07-04T12:15:00Z", "durationMs": 20, "status": "ok" },
+        { "id": "span_create_project_api", "spanId": "span-002", "parentSpanId": "span-001", "label": "Create Project API handled request", "nodeRefs": ["node_api_create_project"], "artifactRefs": ["artifact_file_projects_route"], "startedAt": "2026-07-04T12:15:00Z", "durationMs": 190, "status": "ok" },
+        { "id": "span_create_project_auth", "spanId": "span-003", "parentSpanId": "span-002", "label": "Authentication checked user", "nodeRefs": ["node_system_auth", "node_table_users"], "startedAt": "2026-07-04T12:15:00Z", "durationMs": 60, "status": "ok" },
+        { "id": "span_create_project_service", "spanId": "span-004", "parentSpanId": "span-002", "label": "Project Service created records", "nodeRefs": ["node_service_project_service", "node_table_projects", "node_table_activity_logs"], "artifactRefs": ["artifact_file_project_service"], "startedAt": "2026-07-04T12:15:00Z", "durationMs": 430, "status": "ok" },
+        { "id": "span_create_project_email", "spanId": "span-005", "parentSpanId": "span-004", "label": "Email notification sent", "nodeRefs": ["node_external_email"], "artifactRefs": ["artifact_file_email_service"], "startedAt": "2026-07-04T12:15:01Z", "durationMs": 142, "status": "ok" }
+      ],
+      "evidence": [
+        {
+          "type": "runtime_trace",
+          "source": "demo trace fixture",
+          "reason": "Shows how runtime trace data should connect observed spans to atlas nodes."
+        }
+      ]
+    }
+  ],
+  "views": [
+    {
+      "id": "view_overview_default",
+      "lens": "overview",
+      "label": "Default Overview Map",
+      "summary": "High-level world map of the demo project.",
+      "filters": {
+        "levels": ["L0", "L1", "L2", "L3"],
+        "includeInferred": true,
+        "includeNeedsReview": true
+      },
+      "collapsedNodeRefs": ["node_system_data", "node_system_agent_tooling"],
+      "pinnedNodeRefs": ["node_project_root"]
+    },
+    {
+      "id": "view_agent_tooling",
+      "lens": "agent_mcp_hooks",
+      "label": "Agent, MCP, and Hooks Map",
+      "summary": "Shows agent instructions, MCP server/tool structure, and automation hooks.",
+      "filters": {
+        "areas": ["agent_tooling", "automation", "docs"],
+        "includeInferred": true,
+        "includeNeedsReview": true
+      }
+    },
+    {
+      "id": "view_docs",
+      "lens": "docs",
+      "label": "Docs and Instructions",
+      "summary": "Shows README, AGENTS.md, and Project Atlas agent instructions.",
+      "filters": {
+        "nodeTypes": ["document"],
+        "includeInferred": true,
+        "includeNeedsReview": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "id": "warning_demo_inferred_mcp_tools",
+      "severity": "low",
+      "label": "MCP tools are inferred",
+      "summary": "The demo MCP tools are marked agent_inferred because the fixture does not include a real MCP tool schema.",
+      "nodeRefs": ["node_mcp_tool_read_repo", "node_mcp_tool_create_pr"],
+      "suggestedFix": "When mapping a real project, inspect the MCP server/tool definitions and replace inferred confidence with confirmed evidence."
+    },
+    {
+      "id": "warning_billing_records_abstract",
+      "severity": "medium",
+      "label": "Billing data model is abstract",
+      "summary": "The Stripe webhook flow updates billing records, but this fixture does not define a dedicated subscriptions table node.",
+      "flowRefs": ["flow_stripe_webhook"],
+      "suggestedFix": "A real project atlas should add explicit subscription/payment data nodes if those records exist."
+    }
+  ],
+  "notes": [
+    {
+      "id": "note_world_map_experience",
+      "title": "World-map canvas experience",
+      "explanationLevel": "normal",
+      "bodyMarkdown": "Project Atlas should feel like a 2D world map. Zoomed out, the user sees systems. Zooming in reveals features, flows, files, docs, scripts, hooks, MCP tools, and runtime traces.",
+      "appliesToNodeRefs": ["node_project_root"],
+      "tags": ["ux", "canvas", "world-map"],
+      "confidence": "user_confirmed"
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "snapshot_demo_initial",
+      "createdAt": "2026-07-04T12:00:00Z",
+      "path": "project-atlas-app-plan/07_EXAMPLE_ATLAS_BUNDLE.json",
+      "label": "Initial demo fixture",
+      "summary": "Initial fixture for building and testing Project Atlas."
+    }
+  ]
+}
